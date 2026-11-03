@@ -57,7 +57,7 @@ function App() {
   // tanstack query to fetch api Fetch employees
   const {
     data,
-    isLoading,
+     isFetching,
     isError,
     error,
   } = useQuery({
@@ -123,7 +123,7 @@ function App() {
         {/* Employee Table */}
         <EmployeeTable
           employees={employees}
-          loading={isLoading}
+          loading={isFetching}
           error={isError ? error.message : ""}
         />
 
@@ -131,7 +131,7 @@ function App() {
         <Pagination
           page={pageFromUrl}
           totalPages={totalPages}
-          loading={isLoading}
+          loading={isFetching}
           onPageChange={handlePageChange}
         />
 
