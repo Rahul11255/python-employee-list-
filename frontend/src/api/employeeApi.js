@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "http://127.0.0.1:8000/employees";
+const API_URL = "https://python-employee-list.onrender.com/employees";
 
 export const getEmployees = async ({ queryKey, signal }) => {
   const [, search, page] = queryKey;
