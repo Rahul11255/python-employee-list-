@@ -12,16 +12,24 @@ DB_PORT = int(os.getenv("DB_PORT"))
 DB_USER = os.getenv("DB_USER")
 DB_PASSWORD = os.getenv("DB_PASSWORD")
 DB_NAME = os.getenv("DB_NAME")
+
 DATABASE_URL = (
     f"mysql+pymysql://{DB_USER}:{DB_PASSWORD}"
     f"@{DB_HOST}:{DB_PORT}/{DB_NAME}"
+)
+
+# Local: uses ca.pem from the project folder
+# Render: uses the Secret File path from environment variables
+CA_CERT = os.getenv(
+    "DB_CA_CERT",
+    os.path.join(os.path.dirname(__file__), "ca.pem")
 )
 
 engine = create_engine(
     DATABASE_URL,
     connect_args={
         "ssl": {
-            "ca": os.path.join(os.path.dirname(__file__), "ca.pem")
+            "ca": CA_CERT
         }
     },
     pool_pre_ping=True
@@ -48,4 +56,3 @@ def get_db():
         yield db
     finally:
         db.close()
-

@@ -40,6 +40,9 @@ def home():
         "message": "Employee Directory API is running"
     }
 
+@app.get("/health")
+def health_check():
+    return {"status": "healthy"}
 
 # Create Employee API
 @app.post("/employees")
